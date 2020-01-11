@@ -11,6 +11,7 @@ class EnigmaTest < Minitest::Test
 		@key = "02715"
 		@date2 = "123456"
 		@key2 = "12345"
+		@message = "hello world"
 	end
 
 	def test_its_variables
@@ -49,4 +50,15 @@ class EnigmaTest < Minitest::Test
 		assert_equal 3, @enigma.date_extractor(@date2, -4)
 		assert_equal 6, @enigma.date_extractor(@date2, -1)	
 	end
+
+	def test_encrypt_iteration
+		assert_equal ["k", "e", "d", "e"], @enigma.encrypt_iteration(@message, [3, 27, 73, 20])[0]
+		assert_equal 3, @enigma.encrypt_iteration(@message, [3, 27, 73, 20]).size
+	end
+
+	def test_encrypt
+		assert_equal "kede", @enigma.encrypt(@message, @key, @date)[0,4]
+		assert_equal @message.size, @enigma.encrypt(@message, @key, @date).size
+	end
+	
 end
