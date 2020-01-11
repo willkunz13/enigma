@@ -12,7 +12,6 @@ class EnigmaTest < Minitest::Test
 		@date2 = "123456"
 		@key2 = "12345"
 		@message = "hello world"
-		binding.pry
 	end
 
 	def test_its_variables
@@ -61,5 +60,11 @@ class EnigmaTest < Minitest::Test
 		assert_equal "kede", @enigma.encrypt_message(@message, @key, @date)[0,4]
 		assert_equal @message.size, @enigma.encrypt_message(@message, @key, @date).size
 	end
-	
+
+	def test_encrypt
+		assert_instance_of Hash, @enigma.encrypt(@message, @key, @date)
+		assert_equal @key, @enigma.encrypt(@message, @key, @date)[:key]
+		assert_equal @date, @enigma.encrypt(@message, @key, @date)[:date]
+		assert_equal @enigma.encrypt_message(@message, @key, @date), @enigma.encrypt(@message, @key, @date)[:encryption]
+	end
 end
