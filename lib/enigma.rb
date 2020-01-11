@@ -8,6 +8,14 @@ class Enigma
 	end
 
 	def encrypt(message, key, date)
+		output = {}
+		output[:encrtyption] = encrypt_message(message, key, date)
+		output[:key] = key
+		output[:date] = date
+		output
+	end
+			
+	def encrypt_message(message, key, date)
 		shifters = []
 		shifters << first(key, date)
 		shifters << second(key, date)
@@ -51,5 +59,7 @@ class Enigma
 		end
 					 
 	end
+
+	
 
 end
