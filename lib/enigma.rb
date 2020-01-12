@@ -1,3 +1,5 @@
+require 'date'
+
 class Enigma
 
 	attr_reader :whitelist
@@ -7,9 +9,9 @@ class Enigma
 		@whitelist = file.read.chomp.split(//)
 	end
 
-	def encrypt(message, key, date)
+	def encrypt(message, key, date = DateTime.now.strftime("%d%m%y"))
 		output = {}
-		output[:encrtyption] = encrypt_message(message, key, date)
+		output[:encryption] = encrypt_message(message, key, date)
 		output[:key] = key
 		output[:date] = date
 		output
@@ -45,6 +47,7 @@ class Enigma
 		date = date.to_s[position]
 		date.to_i
 	end
+
 	
 	def encrypt_iteration(message, shifters)
 		message = message.split(//).each_slice(4).to_a.map do |letters|
@@ -60,6 +63,34 @@ class Enigma
 					 
 	end
 
-	
+	def decrypt_message(message, key, date)
+		shifters = []
+		shifters << -(first(key, date))
+		shifters << -(second(key, date))
+		shifters << -(third(key, date))
+		shifters << -(fourth(key, date))
+		encrypt_iteration(message.downcase, shifters).flatten.join
+	end
+
+	def decrypt_iteration(message, shifters)
+		message = message.split(//).each_slice(4).to_a.map do |letters|
+			letters.each_with_index.map do |letter, index|
+				if whitelist.include?(letter)
+					adjusted_letters = whitelist.rotate(shifters[index])
+					adjusted_letters[whitelist.index(letter)]
+				else
+					letter
+				end
+			end
+		end		
+	end
+	 
+	def decrypt(message, key, date = DateTime.now.strftime("%d%m%y"))
+		output = {}
+		output[:decryption] = decrypt_message(message, key, date)
+		output[:key] = key
+		output[:date] = date
+		output
+	end
 
 end
