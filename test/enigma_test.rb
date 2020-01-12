@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'mocha/minitest'
 require 'pry'
 require_relative '../lib/enigma.rb'
 
@@ -12,6 +13,7 @@ class EnigmaTest < Minitest::Test
 		@date2 = "123456"
 		@key2 = "12345"
 		@message = "hello world"
+		@encoded_message = @enigma.encrypt_message(@message, @key, @date)
 	end
 
 	def test_its_variables
@@ -67,4 +69,21 @@ class EnigmaTest < Minitest::Test
 		assert_equal @date, @enigma.encrypt(@message, @key, @date)[:date]
 		assert_equal @enigma.encrypt_message(@message, @key, @date), @enigma.encrypt(@message, @key, @date)[:encryption]
 	end
+
+	def test_decrypt_iteration
+		assert_equal ["h", "e", "l", "l"], @enigma.decrypt_iteration(@encoded_message, [-3, -27, -73, -20])[0]
+		assert_equal 3, @enigma.decrypt_iteration(@encoded_message, [-3, -27, -73, -20]).size
+	end
+
+	def test_decrypt_message
+		assert_equal "hell", @enigma.decrypt_message(@encoded_message, @key, @date)[0,4]
+		assert_equal @message.size, @enigma.decrypt_message(@encoded_message, @key, @date).size
+	end
+
+        def test_decrypt
+                assert_instance_of Hash, @enigma.decrypt(@encoded_message, @key, @date)
+		assert_equal @key, @enigma.decrypt(@encoded_message, @key, @date)[:key]
+		assert_equal @date, @enigma.decrypt(@encoded_message, @key, @date)[:date]
+		assert_equal @enigma.decrypt_message(@encoded_message, @key, @date), @enigma.decrypt(@encoded_message, @key, @date)[:decryption]
+        end
 end
