@@ -5,11 +5,11 @@ class Enigma
 	attr_reader :whitelist
 
 	def initialize
-		file = File.open("../file/white_list.txt")
+		file = File.open("./file/white_list.txt")
 		@whitelist = file.read.chomp.split(//)
 	end
 
-	def encrypt(message, key, date = DateTime.now.strftime("%d%m%y"))
+	def encrypt(message, key = random_key, date = DateTime.now.strftime("%d%m%y"))
 		output = {}
 		output[:encryption] = encrypt_message(message, key, date)
 		output[:key] = key
@@ -84,6 +84,7 @@ class Enigma
 			end
 		end		
 	end
+
 	 
 	def decrypt(message, key, date = DateTime.now.strftime("%d%m%y"))
 		output = {}
@@ -93,4 +94,15 @@ class Enigma
 		output
 	end
 
+	def random_key
+		counter = 0
+		limit = 5
+		numbers = []
+		while counter != limit
+			number = rand(10)
+			numbers << number
+			counter += 1
+		end
+		numbers.join.to_s
+	end
 end
