@@ -1,3 +1,5 @@
+require 'simplecov'
+SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'mocha/minitest'
@@ -12,7 +14,7 @@ class EnigmaTest < Minitest::Test
 		@key = "02715"
 		@date2 = "123456"
 		@key2 = "12345"
-		@message = "hello world"
+		@message = "hello, world"
 		@encoded_message = @enigma.encrypt_message(@message, @key, @date)
 	end
 
@@ -56,6 +58,7 @@ class EnigmaTest < Minitest::Test
 	def test_encrypt_iteration
 		assert_equal ["k", "e", "d", "e"], @enigma.encrypt_iteration(@message, [3, 27, 73, 20])[0]
 		assert_equal 3, @enigma.encrypt_iteration(@message, [3, 27, 73, 20]).size
+                
 	end
 
 	def test_encrypt_message
@@ -85,5 +88,10 @@ class EnigmaTest < Minitest::Test
 		assert_equal @key, @enigma.decrypt(@encoded_message, @key, @date)[:key]
 		assert_equal @date, @enigma.decrypt(@encoded_message, @key, @date)[:date]
 		assert_equal @enigma.decrypt_message(@encoded_message, @key, @date), @enigma.decrypt(@encoded_message, @key, @date)[:decryption]
+        end
+
+        def test_random_key
+                assert_instance_of String, @enigma.random_key
+                assert_equal 5, @enigma.random_key.size
         end
 end
