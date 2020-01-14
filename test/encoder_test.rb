@@ -29,11 +29,13 @@ class EncoderTest < Minitest::Test
 	end
 
 	def test_encrypt_iteration_inner
-		assert_equal ["k", "e", "d", "e"], @encoder.encrypt_iteration_inner(["h", "e", "l", "l"], [3, 27, 73, 20])
+		assert_equal ["k", "e", "d", "e"], \
+@encoder.encrypt_iteration_inner(["h", "e", "l", "l"], [3, 27, 73, 20])
 	end
 
 	def test_encrypt_iteration
-		assert_equal ["k", "e", "d", "e"], @encoder.encrypt_iteration([3, 27, 73, 20])[0]
+		assert_equal ["k", "e", "d", "e"], \
+@encoder.encrypt_iteration([3, 27, 73, 20])[0]
 		assert_equal 3, @encoder.encrypt_iteration([3, 27, 73, 20]).size
 	end
 
