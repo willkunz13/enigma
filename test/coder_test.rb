@@ -15,6 +15,7 @@ class CoderTest < Minitest::Test
                 @key2 = "12345"
                 @input = "hello, world"
 		@coder = Coder.new(@input, @key, @date)
+		@coder2 = Coder.new(@input, @key2, @date2)
 	end
 
 	def test_it_exists
@@ -31,35 +32,31 @@ class CoderTest < Minitest::Test
 	end
 
 	def test_first
-               assert_equal @coder.first(@key, @date), 3
-               assert_equal @coder.first(@key2, @date2), 15           
+               assert_equal @coder.first, 3
+               assert_equal @coder2.first, 15           
 	end
 
-	def test_first
-               assert_equal @coder.first(@key, @date), 3
-               assert_equal @coder.first(@key2, @date2), 15           
-       end
 
-       def test_second
-               assert_equal @coder.second(@key, @date), 27
-               assert_equal @coder.second(@key2, @date2), 32          
-       end
+        def test_second
+               assert_equal @coder.second, 27
+               assert_equal @coder2.second, 32          
+        end
 
-       def test_third
-               assert_equal @coder.third(@key, @date), 73
-               assert_equal @coder.third(@key2, @date2), 37           
-       end
+        def test_third
+               assert_equal @coder.third, 73
+               assert_equal @coder2.third, 37           
+        end
 
-       def test_fourth
-               assert_equal @coder.fourth(@key, @date), 20
-               assert_equal @coder.fourth(@key2, @date2), 51          
-       end
+        def test_fourth
+               assert_equal @coder.fourth, 20
+               assert_equal @coder2.fourth, 51          
+        end
 
-       def test_date_extractor
-               assert_equal 1, @coder.date_extractor(@date, -4)
-               assert_equal 0, @coder.date_extractor(@date, -3)
-               assert_equal 3, @coder.date_extractor(@date2, -4)
-               assert_equal 6, @coder.date_extractor(@date2, -1)      
+        def test_date_extractor
+               assert_equal 1, @coder.date_extractor(-4)
+               assert_equal 0, @coder.date_extractor(-3)
+               assert_equal 3, @coder2.date_extractor(-4)
+               assert_equal 6, @coder2.date_extractor(-1)      
        end
 
 end
