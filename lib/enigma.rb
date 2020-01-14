@@ -19,14 +19,8 @@ class Enigma
 	end
 
 	def random_key
-                counter = 0
-                limit = 5
                 numbers = []
-                while counter != limit
-                        number = rand(10)
-                        numbers << number
-                        counter += 1
-                end
+                5.times { numbers << rand(10)}
                 numbers.join.to_s
         end	
 
