@@ -5,6 +5,7 @@ class Coder
 	def initialize(input, key, date)
                 file = File.open("./file/white_list.txt")
                 @whitelist = file.read.chomp.split(//)
+		file.close
 		@key = key
 		@date = date
 		@input = input
