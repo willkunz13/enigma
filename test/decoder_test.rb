@@ -42,10 +42,14 @@ class DecoderTest < Minitest::Test
                 assert_equal ["h", "e", "l", "l"], \
 			@decoder.decrypt_iteration([-3, -27, -73, -20])[0]
                 assert_equal 3, @decoder.decrypt_iteration([-3, -27, -73, -20]).size
+		assert_equal ["g", "o", "o", "d"], \
+			@decoder2.decrypt_iteration([-15, -32, -37, -51])[0]
+		assert_equal 4, @decoder2.decrypt_iteration([-15, -32, -37, -51]).size
         end
 
         def test_decrypt_message
                 assert_equal "hello, world", @decoder.decrypt_message
+		assert_equal "goodbye, earth", @decoder2.decrypt_message
         end
 
         def test_decrypt_output
