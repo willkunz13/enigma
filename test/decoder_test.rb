@@ -55,7 +55,10 @@ class DecoderTest < Minitest::Test
         def test_decrypt_output
                 assert_instance_of Hash, @decoder.decrypt_output
                 assert_equal @key, @decoder.decrypt_output[:key]
+		assert_equal @key2, @decoder2.decrypt_output[:key]
                 assert_equal @date, @decoder.decrypt_output[:date]
+		assert_equal @date2, @decoder2.decrypt_output[:date]
                 assert_equal @decoder.decrypt_message, @decoder.decrypt_output[:decryption]
+		assert_equal @decoder2.decrypt_message, @decoder2.decrypt_output[:decryption]
         end
 end
