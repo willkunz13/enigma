@@ -33,12 +33,14 @@ class DecoderTest < Minitest::Test
 
 	def test_decrypt_iteration_inner
                 assert_equal ["h", "e", "l", "l"], \
-@decoder.decrypt_iteration_inner(["k", "e", "d", "e"], [-3, -27, -73, -20])
+			@decoder.decrypt_iteration_inner(["k", "e", "d", "e"], [-3, -27, -73, -20])
+		assert_equal ["g", "o", "o", "d"], \
+			@decoder2.decrypt_iteration_inner(["v", "t", "y", "a"], [-15, -32, -37, -51])
         end
 
         def test_decrypt_iteration
                 assert_equal ["h", "e", "l", "l"], \
-@decoder.decrypt_iteration([-3, -27, -73, -20])[0]
+			@decoder.decrypt_iteration([-3, -27, -73, -20])[0]
                 assert_equal 3, @decoder.decrypt_iteration([-3, -27, -73, -20]).size
         end
 
