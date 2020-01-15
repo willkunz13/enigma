@@ -17,7 +17,9 @@ class EnigmaTest < Minitest::Test
 		@date2 = "123456"
 		@key2 = "12345"
 		@input = "hello, world"
+		@input2 = "goodbye, earth"
                 @encrypted_message = "keder,sprrdx"
+		@encrypted_message2 = "vtyaqco,ojkohm"
                 @encoder1 = Encoder.new(@input, @key, "")
                 @encoder1.stubs(:date).returns("654321")
                 @decoder1 = Decoder.new(@encrypted_message, @key, "")
@@ -31,8 +33,10 @@ class EnigmaTest < Minitest::Test
         def test_encrypt
                 assert_instance_of Hash, @enigma.encrypt(@input, @key, @date)
                 assert_equal @key, @enigma.encrypt(@input, @key, @date)[:key]
+		assert_equal @key2, @enigma.encrypt(@input2, @key2, @date2)[:key]
                 assert_equal @date, @enigma.encrypt(@input, @key, @date)[:date]
                 assert_includes @enigma.encrypt(@input, @key, @date)[:encryption], "kede"
+		assert_includes @enigma.encrypt(@input2, @key2, @date2)[:encryption], "vtya"
         end
 
         def test_encrypt_todays_date
@@ -52,8 +56,10 @@ class EnigmaTest < Minitest::Test
         def test_decrypt
                 assert_instance_of Hash, @enigma.decrypt(@encrypted_message, @key, @date)
                 assert_equal @key, @enigma.decrypt(@encrypted_message, @key, @date)[:key]
+		assert_equal @key2, @enigma.decrypt(@encrypted_message, @key2, @date2)[:key]
                 assert_equal @date, @enigma.decrypt(@encrypted_message, @key, @date)[:date]
                 assert_includes @enigma.decrypt(@encrypted_message, @key, @date)[:decryption], "hell"
+		assert_includes @enigma.decrypt(@encrypted_message2, @key2, @date2)[:decryption], "good"
         end
 
         def test_decrypt_todays_date

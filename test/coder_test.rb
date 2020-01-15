@@ -25,9 +25,11 @@ class CoderTest < Minitest::Test
 	def test_its_variables
 		assert_includes @coder.whitelist, "a"
                 assert_includes @coder.whitelist, " "
+		assert_includes @coder2.whitelist, " "
                 refute_includes @coder.whitelist, ","
 		assert_equal @key, @coder.key
 		assert_equal @date, @coder.date
+		assert_equal @date2, @coder2.date
 		assert_equal @input, @coder.input
 	end
 
