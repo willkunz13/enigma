@@ -14,18 +14,21 @@ class DecoderTest < Minitest::Test
                 @date2 = "123456"
                 @key2 = "12345"
                 @input = "keder,sprrdx"
+		@input2 = "vtyaqco,ojkohm"
                 @decoder = Decoder.new(@input, @key, @date)
-                @decoder2 = Decoder.new(@input, @key2, @date2)
+                @decoder2 = Decoder.new(@input2, @key2, @date2)
         end
 
 	def test_it_exists
 		assert_instance_of Decoder, @decoder
+		assert_instance_of Decoder, @decoder2
 	end
 
 	def test_its_inheritted_variables
 		assert_equal @key, @decoder.key
                 assert_equal @key2, @decoder2.key
                 assert_equal @input, @decoder.input
+		assert_equal @input2, @decoder2.input
         end
 
 	def test_decrypt_iteration_inner
